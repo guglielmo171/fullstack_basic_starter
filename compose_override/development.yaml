@@ -24,13 +24,13 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./api
+          path: ./api-dotnet
           target: /src
           ignore:
-            - ./api/bin/
-            - ./api/obj/
+            - ./api-dotnet/bin/
+            - ./api-dotnet/obj/
         - action: rebuild
-          path: ./api/Api/Api.csproj
+          path: ./api-dotnet/Api/Api.csproj
     restart: always
     depends_on:
       postgres_db:
@@ -65,25 +65,25 @@ services:
     volumes:
       - "valkeydata:/data"
 
-  elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:9.5.2"
-    container_name: elasticsearch
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
-    ports:
-      - "9200:9200"
-    volumes:
-      - "esdata:/usr/share/elasticsearch/data"
+  # elasticsearch:
+  #   image: "docker.elastic.co/elasticsearch/elasticsearch:9.5.2"
+  #   container_name: elasticsearch
+  #   environment:
+  #     - discovery.type=single-node
+  #     - xpack.security.enabled=false
+  #     - ES_JAVA_OPTS=-Xms512m -Xmx512m
+  #   ports:
+  #     - "9200:9200"
+  #   volumes:
+  #     - "esdata:/usr/share/elasticsearch/data"
 
-  kibana:
-    image: "docker.elastic.co/kibana/kibana:9.5.2"
-    container_name: kibana
-    environment:
-      - "ELASTICSEARCH_HOSTS=http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}"
-      - xpack.security.enabled=false
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
+  # kibana:
+  #   image: "docker.elastic.co/kibana/kibana:9.5.2"
+  #   container_name: kibana
+  #   environment:
+  #     - "ELASTICSEARCH_HOSTS=http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}"
+  #     - xpack.security.enabled=false
+  #   ports:
+  #     - "5601:5601"
+  #   depends_on:
+  #     - elasticsearch

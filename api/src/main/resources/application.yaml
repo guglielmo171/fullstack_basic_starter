@@ -1,0 +1,25 @@
+# Phase 00 isolation: JPA, Redis, and Liquibase are on the classpath from the
+# starter POM, but we do not connect to real infra yet (no EF database, no
+# fullstack_spring DB, no Valkey). Restore these auto-configurations in phase 02.
+spring:
+  application:
+    name: api
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
+      - org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration
+      - org.springframework.boot.liquibase.autoconfigure.LiquibaseAutoConfiguration
+
+server:
+  port: 5001
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  application:
+    name: api
+
+server:
+  port: 5001

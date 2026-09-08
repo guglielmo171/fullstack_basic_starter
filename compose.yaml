@@ -38,12 +38,12 @@ services:
 
   api:
     build:
-      context: ./api
+      context: ./api-dotnet
       target: "${ENV:-development}"
     image: api
     container_name: api
     volumes:
-      - ./api:/src
+      - ./api-dotnet:/src
     labels:
       - traefik.enable=true
       - traefik.http.routers.api.rule=PathPrefix(`/api`)
