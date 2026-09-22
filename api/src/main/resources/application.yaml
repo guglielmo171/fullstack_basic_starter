@@ -10,6 +10,12 @@ spring:
       - org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration
       - org.springframework.boot.liquibase.autoconfigure.LiquibaseAutoConfiguration
 
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
 server:
   port: 5001
 
@@ -20,6 +26,14 @@ spring:
       on-profile: dev
   application:
     name: api
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /swagger/v1/swagger.json
+  swagger-ui:
+    enabled: true
+    path: /swagger/index.html
 
 server:
   port: 5001
